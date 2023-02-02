@@ -37,6 +37,7 @@ const AvailableItems = () => {
       description={ele.description}
       price={ele.price}
       key={ele.id}
+      id={ele.id}
     />
   ));
 
