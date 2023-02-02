@@ -1,11 +1,29 @@
 import Modal from "../UI/Modal";
 import classes from "./Cart.module.css";
+import { useContext } from "react";
+import CartContext from "../../store/cart-context";
+import CartItem from "./CartItem";
 
 const Cart = function (props) {
+  const cartCtx = useContext(CartContext);
+  const totalAmount = "$" + cartCtx.totalAmount.toFixed(2);
+  const hasItems = cartCtx.items.length > 0;
+
+  const cartItemAddHandler = (item) => {};
+
+  const cartItemRemoveHandler = (id) => {};
+
   const cartItems = (
     <ul className={classes["cart-items"]}>
-      {[{ id: "c1", name: "sushi", amount: 2, price: 12.99 }].map((ele) => (
-        <li key="1">{ele.name}</li>
+      {cartCtx.items.map((ele) => (
+        <CartItem
+          key={ele.id}
+          name={ele.name}
+          amount={ele.amount}
+          price={ele.price}
+          onRemove={cartItemRemoveHandler.bind(null, ele.id)}
+          onAdd={cartItemAddHandler.bind(null, ele)}
+        />
       ))}
     </ul>
   );
@@ -15,13 +33,13 @@ const Cart = function (props) {
       {cartItems}
       <div className={classes.total}>
         <span>Total Amount</span>
-        <span>35.62</span>
+        <span>{totalAmount}</span>
       </div>
       <div className={classes.actions}>
         <button className={classes["button--alt"]} onClick={props.onCloseCart}>
           Close
         </button>
-        <button className={classes.button}>Order</button>
+        {hasItems && <button className={classes.button}>Order</button>}
       </div>
     </Modal>
   );
