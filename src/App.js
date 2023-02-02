@@ -1,8 +1,15 @@
+import React from "react";
+import Items from "./components/Items/Items";
+import Header from "./components/Layout/Header";
+
 function App() {
   return (
-    <div>
-      <h2>Let's get started!</h2>
-    </div>
+    <React.Fragment>
+      <Header />
+      <main>
+        <Items />
+      </main>
+    </React.Fragment>
   );
 }
 
